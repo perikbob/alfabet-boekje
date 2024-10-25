@@ -3,17 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A - Aap</title>
+  <title>Alfabet Boekje - A</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>Alfabet Boekje</h1>
     <button id="startButton" class="start-button">START</button>
     <div id="qr-reader" class="qr-reader"></div>
+    <div id="output" class="output">
+      <h2 id="letter"></h2>
+      <img id="image" src="" alt="Afbeelding" class="word-image">
+      <audio id="audioPlayer"></audio>
+    </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const startButton = document.getElementById('startButton');
+    const qrReader = document.getElementById('qr-reader');
+    const output = document.getElementById('output');
+    const letterDisplay = document.getElementById('letter');
+    const imageDisplay = document.getElementById('image');
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    // Woordenlijst met links naar audio en afbeelding
+    const woordenlijst = {
+      "A": { woord: "Aap", audio: "audio/aap.mp3", image: "images/aap.jpg" },
+      // Voeg andere letters toe op dezelfde manier
+    };
+
+    startButton.addEventListener('click', () => {
+      console.log("Start button clicked");
+      qrReader.style.display = 'block';
+      initializeQRScanner();
+    });
+
+    function initializeQRScanner() {
+      const html5QrCode = new Html5Qrcode("qr-reader");
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        qrCodeMessage => {
+          console.log("QR code scanned:", qrCodeMessage);
+          const letter = qrCodeMessage;
+          if (woordenlijst[letter]) {
+            qrReader.style.display = 'none';
+            showOutput(letter);
+            html5QrCode.stop();
+          } else {
+            console.error("Letter not found in woordenlijst:", letter);
+          }
+        },
+        errorMessage => {
+          console.error("QR scanning error:", errorMessage);
+        }
+      ).catch(err => console.error("QR code scanner failed to start:", err));
+    }
+
+    function showOutput(letter) {
+      const { woord, audio, image } = woordenlijst[letter];
+      letterDisplay.textContent = `${letter} - ${woord}`;
+      imageDisplay.src = image;
+      audioPlayer.src = audio;
+      audioPlayer.play();
+      output.style.display = 'block';
+    }
+  </script>
 </body>
 </html>
