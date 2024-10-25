@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alfabet Boekje - QR Test met Instascan</title>
+  <title>Alfabet Boekje - QR Test met html5-qrcode</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Gebruik Instascan via scanner.min.js CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/instascan/1.0.0/src/scanner.min.js"></script>
+  <!-- Laadt de lokaal gehoste html5-qrcode bibliotheek -->
+  <script src="libs/html5-qrcode.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Alfabet Boekje - QR Test met Instascan</h1>
+    <h1>Alfabet Boekje - QR Test</h1>
     <button id="startButton" class="start-button">START</button>
-    <video id="preview" width="100%" height="auto" style="display: none;"></video>
+    <div id="qr-reader" style="display: none; width: 100%; max-width: 300px;"></div>
     <div id="output" class="output" style="display: none;">
       <h2 id="letter"></h2>
       <img id="image" src="" alt="Afbeelding" class="word-image">
@@ -22,7 +22,7 @@
 
   <script>
     const startButton = document.getElementById('startButton');
-    const preview = document.getElementById('preview');
+    const qrReader = document.getElementById('qr-reader');
     const output = document.getElementById('output');
     const letterDisplay = document.getElementById('letter');
     const imageDisplay = document.getElementById('image');
@@ -36,33 +36,32 @@
 
     startButton.addEventListener('click', () => {
       console.log("START-knop is geklikt");
-      preview.style.display = 'block';
+      qrReader.style.display = 'block';
       startQRScanner();
     });
 
     function startQRScanner() {
-      let scanner = new Instascan.Scanner({ video: preview });
-      scanner.addListener('scan', function (content) {
-        console.log("QR code gescand:", content);
-        const letter = content.trim();
-        if (woordenlijst[letter]) {
-          preview.style.display = 'none';
-          showOutput(letter);
-          scanner.stop();
-        } else {
-          alert("Deze letter is niet beschikbaar.");
+      const html5QrCode = new Html5Qrcode("qr-reader");
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        (decodedText) => {
+          console.log("QR code gescand:", decodedText);
+          const letter = decodedText.trim();
+          if (woordenlijst[letter]) {
+            qrReader.style.display = 'none';
+            showOutput(letter);
+            html5QrCode.stop();
+          } else {
+            alert("Deze letter is niet beschikbaar.");
+          }
+        },
+        (errorMessage) => {
+          console.error("Fout bij het scannen van QR-code:", errorMessage);
         }
-      });
-
-      Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-          scanner.start(cameras[0]);
-        } else {
-          alert('Geen camera beschikbaar.');
-        }
-      }).catch(function (e) {
-        console.error(e);
-        alert("Er is een probleem met toegang tot de camera.");
+      ).catch((err) => {
+        console.error("QR-code scanner kan niet starten:", err);
+        alert("Kan QR-code scanner niet starten.");
       });
     }
 
