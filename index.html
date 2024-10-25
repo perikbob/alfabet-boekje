@@ -33,10 +33,21 @@
       // Voeg andere letters toe op dezelfde manier
     };
 
-    startButton.addEventListener('click', () => {
+    startButton.addEventListener('click', async () => {
       console.log("START-knop is geklikt");
-      qrReader.style.display = 'block';
-      initializeQRScanner();
+
+      try {
+        // Handmatig toestemming vragen voor de camera
+        await navigator.mediaDevices.getUserMedia({ video: true });
+        console.log("Toestemming voor camera verkregen");
+        
+        // Toon QR-reader en start de scanner
+        qrReader.style.display = 'block';
+        initializeQRScanner();
+      } catch (err) {
+        console.error("Camera toegang geweigerd of fout:", err);
+        alert("Camera toegang is vereist om QR-codes te scannen.");
+      }
     });
 
     function initializeQRScanner() {
