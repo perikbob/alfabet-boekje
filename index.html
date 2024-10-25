@@ -3,19 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alfabet Boekje - Camera Test</title>
+  <title>Alfabet Boekje - QR Test</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Alfabet Boekje - Camera Test</h1>
+    <h1>Alfabet Boekje - QR Test</h1>
     <button id="startButton" class="start-button">START</button>
+    <div id="qr-reader" class="qr-reader" style="display: none;"></div>
     <video id="cameraStream" width="100%" height="auto" autoplay style="display: none;"></video>
+    <div id="output" class="output" style="display: none;">
+      <h2 id="letter"></h2>
+      <img id="image" src="" alt="Afbeelding" class="word-image">
+      <audio id="audioPlayer"></audio>
+    </div>
   </div>
 
   <script>
     const startButton = document.getElementById('startButton');
+    const qrReader = document.getElementById('qr-reader');
     const cameraStream = document.getElementById('cameraStream');
+    const output = document.getElementById('output');
+    const letterDisplay = document.getElementById('letter');
+    const imageDisplay = document.getElementById('image');
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    // Woordenlijst met links naar audio en afbeelding
+    const woordenlijst = {
+      "A": { woord: "Aap", audio: "audio/aap.mp3", image: "images/aap.jpg" },
+      // Voeg andere letters toe op dezelfde manier
+    };
 
     startButton.addEventListener('click', async () => {
       try {
@@ -23,12 +41,4 @@
         const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
         cameraStream.srcObject = stream;
         cameraStream.style.display = 'block';
-        console.log("Camera stream gestart");
-      } catch (err) {
-        console.error("Toegang tot camera geweigerd of fout:", err);
-        alert("Camera toegang is vereist om verder te gaan.");
-      }
-    });
-  </script>
-</body>
-</html>
+        console.log
