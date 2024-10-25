@@ -8,11 +8,11 @@ const audioPlayer = document.getElementById('audioPlayer');
 // Woordenlijst met links naar audio en afbeelding
 const woordenlijst = {
   "A": { woord: "Aap", audio: "audio/aap.mp3", image: "images/aap.jpg" },
-  "B": { woord: "Boer", audio: "audio/boer.mp3", image: "images/boer.jpg" },
-  // Voeg andere letters toe
+  // Voeg andere letters toe op dezelfde manier
 };
 
 startButton.addEventListener('click', () => {
+  console.log("Start button clicked"); // Controleer of de start-knop werkt
   qrReader.style.display = 'block';
   html5QrcodeScanner();
 });
@@ -23,18 +23,20 @@ function html5QrcodeScanner() {
     { facingMode: "environment" },
     { fps: 10, qrbox: { width: 250, height: 250 } },
     qrCodeMessage => {
+      console.log("QR code scanned:", qrCodeMessage); // Controleer de inhoud van de QR-code
       const letter = qrCodeMessage;
       if (woordenlijst[letter]) {
-        // Verberg QR-scanner en toon resultaat
         qrReader.style.display = 'none';
         showOutput(letter);
         html5QrCode.stop();
+      } else {
+        console.error("Letter not found in woordenlijst:", letter);
       }
     },
     errorMessage => {
-      console.log("QR-scan fout:", errorMessage);
+      console.error("QR scanning error:", errorMessage); // Log scanfouten
     }
-  ).catch(err => console.log("QR-camera fout:", err));
+  ).catch(err => console.error("QR code scanner failed to start:", err));
 }
 
 function showOutput(letter) {
