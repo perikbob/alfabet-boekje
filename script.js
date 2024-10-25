@@ -5,8 +5,6 @@ const letterDisplay = document.getElementById('letter');
 const imageDisplay = document.getElementById('image');
 const audioPlayer = document.getElementById('audioPlayer');
 
-const startButton = document.getElementById('startButton');
-
 startButton.addEventListener('click', () => {
   alert("Button clicked!"); // This should show an alert when clicked
 });
