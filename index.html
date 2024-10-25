@@ -3,88 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alfabet Boekje - A</title>
+  <title>Alfabet Boekje - Camera Test</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Alfabet Boekje</h1>
+    <h1>Alfabet Boekje - Camera Test</h1>
     <button id="startButton" class="start-button">START</button>
-    <div id="qr-reader" class="qr-reader" style="display: none;"></div>
-    <div id="output" class="output" style="display: none;">
-      <h2 id="letter"></h2>
-      <img id="image" src="" alt="Afbeelding" class="word-image">
-      <audio id="audioPlayer"></audio>
-    </div>
+    <video id="cameraStream" width="100%" height="auto" autoplay style="display: none;"></video>
   </div>
 
   <script>
     const startButton = document.getElementById('startButton');
-    const qrReader = document.getElementById('qr-reader');
-    const output = document.getElementById('output');
-    const letterDisplay = document.getElementById('letter');
-    const imageDisplay = document.getElementById('image');
-    const audioPlayer = document.getElementById('audioPlayer');
-
-    // Woordenlijst met links naar audio en afbeelding
-    const woordenlijst = {
-      "A": { woord: "Aap", audio: "audio/aap.mp3", image: "images/aap.jpg" },
-      // Voeg andere letters toe op dezelfde manier
-    };
+    const cameraStream = document.getElementById('cameraStream');
 
     startButton.addEventListener('click', async () => {
-      console.log("START-knop is geklikt");
-
       try {
-        // Handmatig toestemming vragen voor de camera
-        await navigator.mediaDevices.getUserMedia({ video: true });
-        console.log("Toestemming voor camera verkregen");
-        
-        // Toon QR-reader en start de scanner
-        qrReader.style.display = 'block';
-        initializeQRScanner();
+        // Vraag toegang tot de camera
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+        cameraStream.srcObject = stream;
+        cameraStream.style.display = 'block';
+        console.log("Camera stream gestart");
       } catch (err) {
-        console.error("Camera toegang geweigerd of fout:", err);
-        alert("Camera toegang is vereist om QR-codes te scannen.");
+        console.error("Toegang tot camera geweigerd of fout:", err);
+        alert("Camera toegang is vereist om verder te gaan.");
       }
     });
-
-    function initializeQRScanner() {
-      const html5QrCode = new Html5Qrcode("qr-reader");
-      html5QrCode.start(
-        { facingMode: "environment" },  // Achtercamera
-        { fps: 10, qrbox: { width: 250, height: 250 } },
-        qrCodeMessage => {
-          console.log("QR code gescand:", qrCodeMessage);
-          const letter = qrCodeMessage;
-          if (woordenlijst[letter]) {
-            qrReader.style.display = 'none';
-            showOutput(letter);
-            html5QrCode.stop();
-          } else {
-            console.error("Letter niet gevonden in woordenlijst:", letter);
-            alert("Deze letter is niet beschikbaar.");
-          }
-        },
-        errorMessage => {
-          console.error("Fout bij het scannen van QR-code:", errorMessage);
-          alert("Er is een probleem met de QR-scan.");
-        }
-      ).catch(err => {
-        console.error("QR-code scanner kan niet starten:", err);
-        alert("Kan QR-code scanner niet starten.");
-      });
-    }
-
-    function showOutput(letter) {
-      const { woord, audio, image } = woordenlijst[letter];
-      letterDisplay.textContent = `${letter} - ${woord}`;
-      imageDisplay.src = image;
-      audioPlayer.src = audio;
-      audioPlayer.play();
-      output.style.display = 'block';
-    }
   </script>
 </body>
 </html>
