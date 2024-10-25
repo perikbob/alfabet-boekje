@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alfabet Boekje - QR Test</title>
+  <title>Alfabet Boekje - QR Test met Instascan</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+  <!-- Instascan JS Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/instascan/1.0.0/instascan.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Alfabet Boekje - QR Test</h1>
+    <h1>Alfabet Boekje - QR Test met Instascan</h1>
     <button id="startButton" class="start-button">START</button>
-    <div id="qr-reader" class="qr-reader" style="display: none;"></div>
-    <video id="cameraStream" width="100%" height="auto" autoplay style="display: none;"></video>
+    <video id="preview" width="100%" height="auto" style="display: none;"></video>
     <div id="output" class="output" style="display: none;">
       <h2 id="letter"></h2>
       <img id="image" src="" alt="Afbeelding" class="word-image">
@@ -22,8 +22,7 @@
 
   <script>
     const startButton = document.getElementById('startButton');
-    const qrReader = document.getElementById('qr-reader');
-    const cameraStream = document.getElementById('cameraStream');
+    const preview = document.getElementById('preview');
     const output = document.getElementById('output');
     const letterDisplay = document.getElementById('letter');
     const imageDisplay = document.getElementById('image');
@@ -35,10 +34,46 @@
       // Voeg andere letters toe op dezelfde manier
     };
 
-    startButton.addEventListener('click', async () => {
-      try {
-        // Vraag toegang tot de camera
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-        cameraStream.srcObject = stream;
-        cameraStream.style.display = 'block';
-        console.log
+    startButton.addEventListener('click', () => {
+      console.log("START-knop is geklikt");
+      preview.style.display = 'block';
+      startQRScanner();
+    });
+
+    function startQRScanner() {
+      let scanner = new Instascan.Scanner({ video: preview });
+      scanner.addListener('scan', function (content) {
+        console.log("QR code gescand:", content);
+        const letter = content.trim();
+        if (woordenlijst[letter]) {
+          preview.style.display = 'none';
+          showOutput(letter);
+          scanner.stop();
+        } else {
+          alert("Deze letter is niet beschikbaar.");
+        }
+      });
+
+      Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[0]);
+        } else {
+          alert('Geen camera beschikbaar.');
+        }
+      }).catch(function (e) {
+        console.error(e);
+        alert("Er is een probleem met toegang tot de camera.");
+      });
+    }
+
+    function showOutput(letter) {
+      const { woord, audio, image } = woordenlijst[letter];
+      letterDisplay.textContent = `${letter} - ${woord}`;
+      imageDisplay.src = image;
+      audioPlayer.src = audio;
+      audioPlayer.play();
+      output.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
