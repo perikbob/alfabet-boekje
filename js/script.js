@@ -1,4 +1,3 @@
-
 const startButton = document.getElementById('startButton');
 const qrReader = document.getElementById('qr-reader');
 const output = document.getElementById('output');
@@ -6,18 +5,14 @@ const letterDisplay = document.getElementById('letter');
 const imageDisplay = document.getElementById('image');
 const audioPlayer = document.getElementById('audioPlayer');
 
-// Woordenlijst met links naar audio en afbeelding
-const woordenlijst = {
-  "A": { woord: "Aap", audio: "audio/aap.mp3", image: "images/aap.jpg" },
-  // Voeg andere letters toe op dezelfde manier
-};
-
+// Startknop event listener
 startButton.addEventListener('click', () => {
   console.log("START-knop is geklikt");
   qrReader.style.display = 'block';
   startQRScanner();
 });
 
+// QR-scanner functie
 function startQRScanner() {
   const html5QrCode = new Html5Qrcode("qr-reader");
   html5QrCode.start(
@@ -25,7 +20,7 @@ function startQRScanner() {
     { fps: 10, qrbox: { width: 250, height: 250 } },
     (decodedText) => {
       console.log("QR code gescand:", decodedText);
-      const letter = decodedText.trim();
+      const letter = decodedText.trim().toUpperCase();
       if (woordenlijst[letter]) {
         qrReader.style.display = 'none';
         showOutput(letter);
@@ -43,9 +38,10 @@ function startQRScanner() {
   });
 }
 
+// Functie om output te tonen
 function showOutput(letter) {
   const { woord, audio, image } = woordenlijst[letter];
-  letterDisplay.textContent = `${letter} - ${woord}`;
+  letterDisplay.textContent = `${letter} van ${woord}`;  // Dynamisch "A van Appel" genereren
   imageDisplay.src = image;
   audioPlayer.src = audio;
   audioPlayer.play();
