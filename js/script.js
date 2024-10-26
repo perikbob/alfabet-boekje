@@ -17,6 +17,7 @@ startButton.addEventListener('click', () => {
 // Event listener voor de Toon Letter-knop
 testButton.addEventListener('click', () => {
   const selectedLetter = letterSelect.value;
+  alert(selectedLetter);
   if (selectedLetter && woordenlijst[selectedLetter]) {
     showOutput(selectedLetter);
   } else {
