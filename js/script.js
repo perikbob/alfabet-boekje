@@ -7,6 +7,24 @@ const letterDisplay = document.getElementById('letter');
 const imageDisplay = document.getElementById('image');
 const audioPlayer = document.getElementById('audioPlayer');
 
+// Voeg alle letters van het alfabet toe aan de dropdown
+function populateDropdown() {
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = "Selecteer een letter";
+  letterSelect.appendChild(defaultOption);
+
+  for (const letter of alphabet) {
+    const option = document.createElement("option");
+    option.value = letter;
+    option.textContent = letter;
+    letterSelect.appendChild(option);
+  }
+}
+
+populateDropdown();  // Roep de functie aan om de dropdown te vullen
+
 // Event listener voor de QR START-knop
 startButton.addEventListener('click', () => {
   console.log("START-knop is geklikt");
@@ -17,7 +35,6 @@ startButton.addEventListener('click', () => {
 // Event listener voor de Toon Letter-knop
 testButton.addEventListener('click', () => {
   const selectedLetter = letterSelect.value;
-  alert(selectedLetter);
   if (selectedLetter && woordenlijst[selectedLetter]) {
     showOutput(selectedLetter);
   } else {
