@@ -1,15 +1,27 @@
 const startButton = document.getElementById('startButton');
+const testButton = document.getElementById('testButton');
+const letterSelect = document.getElementById('letterSelect');
 const qrReader = document.getElementById('qr-reader');
 const output = document.getElementById('output');
 const letterDisplay = document.getElementById('letter');
 const imageDisplay = document.getElementById('image');
 const audioPlayer = document.getElementById('audioPlayer');
 
-// Startknop event listener
+// Event listener voor de QR START-knop
 startButton.addEventListener('click', () => {
   console.log("START-knop is geklikt");
   qrReader.style.display = 'block';
   startQRScanner();
+});
+
+// Event listener voor de Toon Letter-knop
+testButton.addEventListener('click', () => {
+  const selectedLetter = letterSelect.value;
+  if (selectedLetter && woordenlijst[selectedLetter]) {
+    showOutput(selectedLetter);
+  } else {
+    alert("Selecteer een geldige letter.");
+  }
 });
 
 // QR-scanner functie
