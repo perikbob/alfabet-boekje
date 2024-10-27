@@ -134,3 +134,24 @@ h1 {
   display: flex; /* Wanneer zichtbaar, wordt het element een flex-container */
 }
 
+/* Algemene styling voor de navigatiebalk */
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 5px 10px;
+  transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+  background-color: #45a049;
+  border-radius: 5px;
+}
