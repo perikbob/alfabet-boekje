@@ -24,5 +24,6 @@ const woordenlijst = {
   "W": { woord: "Wortel", audio: "audio/wortel.mp3", image: "images/wortel.jpg" },
   "X": { woord: "Xylofoon", audio: "audio/xylofoon.mp3", image: "images/xylofoon.jpg" },
   "Y": { woord: "Yoghurt", audio: "audio/yoghurt.mp3", image: "images/yoghurt.jpg" },
-  "Z": { woord: "Zon", audio: "audio/zon.mp3", image: "images/zon.jpg" }
+  "Z": { woord: "Zon", audio: "audio/zon.mp3", image: "images/zon.jpg" },
+  "Welcome": { woord: "Welkom Alexander", audio: "audio/welcome.mp3" }
 };
