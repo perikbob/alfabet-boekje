@@ -92,12 +92,12 @@ function showOutput(letter) {
   // Zet de tekst voor de letter en woord
   letterDisplay.textContent = `${letter} van ${woord}`;
 
-  // Controleer of er een afbeelding is, zo ja, toon deze; anders verberg het element
+  // Controleer of er een afbeelding is, zo ja, toon deze door de 'visible' class toe te voegen; anders verberg het element
   if (image) {
     imageDisplay.src = image;
-    imageDisplay.style.display = "block";
+    imageDisplay.classList.add("visible");  // Voeg 'visible' class toe
   } else {
-    imageDisplay.style.display = "none";
+    imageDisplay.classList.remove("visible");  // Verwijder 'visible' class als er geen afbeelding is
   }
 
   // Zet audio en speel af
@@ -105,6 +105,7 @@ function showOutput(letter) {
   audioPlayer.play();
 
   // Maak de output container zichtbaar
-  output.style.display = 'block';
+  output.style.display = 'flex'; // Zorg dat display: flex is voor centrering
 }
+
 
