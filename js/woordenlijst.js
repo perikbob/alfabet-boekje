@@ -14,7 +14,7 @@ const woordenlijst = {
   "M": { woord: "Muis", audio: "audio/muis.mp3", image: "images/muis.jpg" },
   "N": { woord: "Noot", audio: "audio/noot.mp3", image: "images/noot.jpg" },
   "O": { woord: "Opa", audio: "audio/opa.mp3", image: "images/opa.jpg" },
-  "P": { woord: "Paard", audio: "audio/peer.mp3", image: "images/peer.jpg" },
+  "P": { woord: "Paard", audio: "audio/paard.mp3", image: "images/paard.jpg" },
   "Q": { woord: "Quiche", audio: "audio/quiche.mp3", image: "images/quiche.jpg" },
   "R": { woord: "Radijs", audio: "audio/radijs.mp3", image: "images/radijs.jpg" },
   "S": { woord: "Schaap", audio: "audio/schaap.mp3", image: "images/schaap.jpg" },
