@@ -71,6 +71,13 @@ function startQRScanner() {
 // Functie om output te tonen
 function showOutput(letter) {
   const { woord, audio, image } = woordenlijst[letter];
+  
+  // Debug informatie
+  console.log("Letter:", letter);  // Controleert de letter die wordt gebruikt
+  console.log("Woord:", woord);    // Controleert het woord dat moet worden weergegeven
+  console.log("Audio:", audio);    // Controleert het audiobestand dat moet worden afgespeeld
+
+  // Zet de tekst voor de letter en woord
   letterDisplay.textContent = `${letter} van ${woord}`;
 
   // Controleer of er een afbeelding is, zo ja, toon deze; anders verberg het element
@@ -88,3 +95,4 @@ function showOutput(letter) {
   // Toon de output sectie
   output.style.display = 'block';
 }
+
