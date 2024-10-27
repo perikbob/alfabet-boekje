@@ -71,9 +71,20 @@ function startQRScanner() {
 // Functie om output te tonen
 function showOutput(letter) {
   const { woord, audio, image } = woordenlijst[letter];
-  letterDisplay.textContent = `${letter} van ${woord}`;  // Dynamisch "A van Appel" genereren
-  imageDisplay.src = image;
+  letterDisplay.textContent = `${letter} van ${woord}`;
+
+  // Controleer of er een afbeelding is, zo ja, toon deze; anders verberg het element
+  if (image) {
+    imageDisplay.src = image;
+    imageDisplay.style.display = "block";
+  } else {
+    imageDisplay.style.display = "none";
+  }
+
+  // Zet audio en speel af
   audioPlayer.src = audio;
   audioPlayer.play();
+
+  // Toon de output sectie
   output.style.display = 'block';
 }
