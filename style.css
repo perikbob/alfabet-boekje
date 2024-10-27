@@ -75,10 +75,12 @@ h1 {
   margin-top: 15px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  display: block; /* Zorgt ervoor dat de afbeelding als blok wordt weergegeven */
+  display: none; /* Standaard verborgen */
 }
 
-
+.word-image.visible {
+  display: block; /* Alleen tonen als de 'visible' class is toegevoegd */
+}
 
 #letter {
   font-size: 2rem;
