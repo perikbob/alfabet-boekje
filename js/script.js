@@ -71,9 +71,11 @@ function startQRScanner() {
 // Functie om output te tonen
 function showOutput(letter) {
   const { woord, audio, image } = woordenlijst[letter];
+  
+  // Toon het woord zoals "A van Appel"
   letterDisplay.textContent = `${letter} van ${woord}`;
 
-  // Alleen de afbeelding tonen als deze beschikbaar is
+  // Controleer of er een afbeelding is; voeg de 'visible' class toe als deze bestaat
   if (image) {
     imageDisplay.src = image;
     imageDisplay.classList.add("visible");
@@ -81,12 +83,10 @@ function showOutput(letter) {
     imageDisplay.classList.remove("visible");
   }
 
-  // Zet de audio en speel deze af
+  // Zet het audiobestand en speel het af
   audioPlayer.src = audio;
   audioPlayer.play();
 
   // Maak de output container zichtbaar door de 'visible' class toe te voegen
   output.classList.add("visible");
 }
-
-
