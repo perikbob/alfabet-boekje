@@ -61,14 +61,17 @@ h1 {
 
 /* Output sectie voor letter, afbeelding en audio */
 .output {
-  display: flex;
+  /* Geen display: none hier meer */
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Centert zowel verticaal als horizontaal */
+  justify-content: center;
   text-align: center;
 }
 
-/* Afbeelding styling */
+.output.visible {
+  display: flex; /* Maakt de output container zichtbaar en centreert de inhoud */
+}
+
 .word-image {
   max-width: 200px;
   height: auto;
