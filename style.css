@@ -120,3 +120,12 @@ h1 {
 .test-button:hover {
   background-color: #45a049;
 }
+
+.output {
+  display: none; /* Standaard verborgen */
+}
+
+.output.visible {
+  display: flex; /* Wanneer zichtbaar, wordt het element een flex-container */
+}
+
