@@ -61,20 +61,23 @@ h1 {
 
 /* Output sectie voor letter, afbeelding en audio */
 .output {
-  text-align: center;  /* Zorgt ervoor dat de inhoud van output wordt gecentreerd */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Centert zowel verticaal als horizontaal */
+  text-align: center;
 }
 
+/* Afbeelding styling */
 .word-image {
-  width: 100%;
   max-width: 200px;
   height: auto;
   margin-top: 15px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  display: block; /* Zorgt ervoor dat de afbeelding als blok wordt weergegeven */
 }
+
 
 
 #letter {
