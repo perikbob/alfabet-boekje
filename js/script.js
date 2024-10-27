@@ -50,8 +50,13 @@ function startQRScanner() {
     { fps: 10, qrbox: { width: 250, height: 250 } },
     (decodedText) => {
       console.log("QR code gescand:", decodedText);
-      const letter = decodedText.trim().toUpperCase();
-      if (woordenlijst[letter]) {
+      const letter = decodedText.trim();
+
+      // Controleer of de gescande tekst "Welcome" is
+      if (letter === "Welcome") {
+        playWelcomeMessage();
+      } else if (woordenlijst[letter]) {
+        // Als het een reguliere letter is, toon de output voor die letter
         qrReader.style.display = 'none';
         showOutput(letter);
         html5QrCode.stop();
@@ -68,7 +73,19 @@ function startQRScanner() {
   });
 }
 
-// Functie om output te tonen
+// Functie om het Welkomstbericht af te spelen
+function playWelcomeMessage() {
+  letterDisplay.textContent = "Welkom!";
+  imageDisplay.style.display = "none";  // Verberg afbeelding als er geen is
+
+  // Speel het welkom audio af
+  audioPlayer.src = "audio/welcome.mp3";
+  audioPlayer.play();
+
+  // Maak de output container zichtbaar
+  output.style.display = 'block';
+}
+
 function showOutput(letter) {
   const { woord, audio, image } = woordenlijst[letter];
   
@@ -78,16 +95,16 @@ function showOutput(letter) {
   // Controleer of er een afbeelding is, zo ja, toon deze; anders verberg het element
   if (image) {
     imageDisplay.src = image;
-    imageDisplay.classList.add("visible");
+    imageDisplay.style.display = "block";
   } else {
-    imageDisplay.classList.remove("visible");
+    imageDisplay.style.display = "none";
   }
 
   // Zet audio en speel af
   audioPlayer.src = audio;
   audioPlayer.play();
 
-  // Maak de output container zichtbaar door inline-styling toe te voegen
-  output.style.display = 'flex'; // Directe inline-styling voor zichtbaarheid
+  // Maak de output container zichtbaar
+  output.style.display = 'block';
 }
 
