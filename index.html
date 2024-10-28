@@ -3,37 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alfabet Boekje</title>
-  <link rel="icon" href="images/fav.ico" type="image/x-icon">
+  <title>Spellen Overzicht</title>
   <link rel="stylesheet" href="style.css">
-  <script src="js/woordenlijst.js"></script>
-  <script src="js/html5-qrcode.min.js"></script>
+  <link rel="icon" href="images/fav.ico" type="image/x-icon">
 </head>
 <body>
+  <!-- Navigatiebalk -->
+  <a href="index.html" class="navbar">
+    Home
+  </a>
+  
   <div class="container">
-    <h1>Alfabet Boekje</h1>
+    <h1>Spellen Overzicht</h1>
+    <div class="tiles">
+      <!-- Tegel naar Alfabet Boekje -->
+      <a href="alfabet.html" class="tile">
+        <div class="tile-content">
+          <h2>Alfabet Boekje</h2>
+        </div>
+      </a>
 
-    <!-- QR START-knop -->
-    <button id="startButton" class="start-button">START</button>
-    
-    <!-- QR-reader container -->
-    <div id="qr-reader" style="display: none; width: 100%; max-width: 300px;"></div>
+      <!-- Tegel naar Raad en Herken -->
+      <a href="raad-herken.html" class="tile">
+        <div class="tile-content">
+          <h2>Raad en Herken</h2>
+        </div>
+      </a>
 
-    <!-- Output container voor letter, afbeelding en audio -->
-    <div id="output" class="output">
-      <h2 id="letter"></h2>
-      <img id="image" src="" alt="Afbeelding" class="word-image">
-      <audio id="audioPlayer"></audio>
-    </div>
-
-    <!-- Dropdown en Testknop onderaan zonder label-tekst -->
-    <div class="test-container">
-      <select id="letterSelect" class="dropdown"></select>
-      <button id="testButton" class="test-button">Toon Letter</button>
+      <!-- Tegel naar Alle letters-->
+      <a href="alle-letters.html" class="tile">
+        <div class="tile-content">
+          <h2>Alle letters</h2>
+        </div>
+      </a>
     </div>
   </div>
 
-  <!-- Script links -->
-  <script src="js/script.js"></script>
+  <img src="images/play_me.png" class="play-button" onclick="playWelcomeAudio()" alt="Speel Welkomstbericht">
+    <script>
+    function playWelcomeAudio() {
+      const audio = new Audio("audio/welcome.mp3");
+      audio.play();
+    }
+  </script>
+  
 </body>
 </html>

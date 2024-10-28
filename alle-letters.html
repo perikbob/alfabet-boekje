@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alfabet Boekje</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigatiebalk -->
+  <a href="index.html" class="navbar">
+    Home
+  </a>
+
+  <div class="container">
+    <h1>Alle letters</h1>
+
+    <!-- Dropdown en Testknop onderaan zonder label-tekst -->
+    <div class="alle-letters-container ">
+      <select id="letterSelect" class="dropdown"></select>
+      <button class="button" id="alle-letters">Toon Letter</button>
+    </div>
+
+          <!-- Output container voor letter, afbeelding en audio -->
+    <div id="output" class="output">
+      <h2 id="letter"></h2>
+      <img id="image" src="" alt="Afbeelding" class="word-image">
+      <audio id="audioPlayer"></audio>
+    </div>
+  </div>
+
+  <!-- Laad eerst woordenlijst.js en daarna script.js -->
+  <script src="js/woordenlijst.js"></script>
+  <script src="js/alle-letters.js"></script>
+</body>
+</html>

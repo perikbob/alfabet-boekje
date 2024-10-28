@@ -8,24 +8,55 @@
 
 body {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
   background-image: url("images/background.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  padding-top: 60px; /* Ruimte voor vaste navigatiebalk */
+}
+
+/* Navigatiebalk styling */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #ff6347;
+  padding: 15px 0; /* Maak de hoogte van de klikbare balk groter */
+  text-decoration: none;
+  font-size: 1.2rem;
+  text-align: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navbar:hover {
+  background-color: #45a049;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
 }
 
 /* Hoofdcontainer */
 .container {
   width: 90%;
-  max-width: 400px;
+  max-width: 800px; /* Brede container voor tegelweergave */
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.85); /* Witte achtergrond met transparantie */
+  background-color: rgba(255, 255, 255, 0.85);
   border-radius: 15px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
   padding: 20px;
+  margin-top: 20px;
 }
 
 /* Titel */
@@ -35,21 +66,66 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* Start-knop */
-.start-button {
+/* Standaard button styling */
+.button {
   background-color: #ff6347;
-  color: #fff;
-  padding: 15px 30px;
-  font-size: 1.5rem;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.start-button:hover {
+.button:hover {
   background-color: #ff4500;
 }
+
+/* Specifieke knopgroottes */
+.button.large {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+}
+
+.button.small {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+/* Standaard styling voor tegels */
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Stijl voor individuele tegels */
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  background-color: #ff6347;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tile-content h2 {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
 
 /* QR-reader styling */
 .qr-reader {
@@ -61,7 +137,7 @@ h1 {
 
 /* Output sectie voor letter, afbeelding en audio */
 .output {
-  /* Geen display: none hier meer */
+  display: none; /* Standaard verborgen */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -69,7 +145,7 @@ h1 {
 }
 
 .output.visible {
-  display: flex; /* Maakt de output container zichtbaar en centreert de inhoud */
+  display: flex; /* Wordt zichtbaar bij gebruik van de 'visible' class */
 }
 
 .word-image {
@@ -92,7 +168,7 @@ h1 {
 }
 
 /* Styling voor de testcontainer onderaan */
-.test-container {
+.alle-letters-container {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -110,52 +186,7 @@ h1 {
   text-align: center;
 }
 
-/* Test-knop styling */
-.test-button {
-  background-color: #4caf50;
-  color: #fff;
-  padding: 12px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.test-button:hover {
-  background-color: #45a049;
-}
-
-.output {
-  display: none; /* Standaard verborgen */
-}
-
-.output.visible {
-  display: flex; /* Wanneer zichtbaar, wordt het element een flex-container */
-}
-
-/* Algemene styling voor de navigatiebalk */
-.navbar {
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  background-color: #4caf50;
-  color: white;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  font-size: 1rem;
-  padding: 5px 10px;
-  transition: background-color 0.3s;
-}
-
-.navbar a:hover {
-  background-color: #45a049;
-  border-radius: 5px;
-}
-
+/* Styling voor opties in de feedback sectie */
 .options-container {
   display: flex;
   justify-content: center;
@@ -179,3 +210,19 @@ h1 {
   font-size: 1.2rem;
   text-align: center;
 }
+
+
+.play-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px; 
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.play-button:hover {
+  transform: scale(1.1); 
+}
+

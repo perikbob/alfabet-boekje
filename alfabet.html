@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alfabet Boekje</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="js/html5-qrcode.min.js"></script>
+</head>
+<body>
+  <!-- Navigatiebalk -->
+  <a href="index.html" class="navbar">
+    Home
+  </a>
+
+  <div class="container">
+    <h1>Alfabet Boekje</h1>
+
+    <!-- QR START-knop -->
+    <button id="startButton" class="button">START</button>
+    
+    <!-- QR-reader container -->
+    <div id="qr-reader" style="display: none; width: 100%; max-width: 300px;"></div>
+
+    <!-- Output container voor letter, afbeelding en audio -->
+    <div id="output" class="output">
+      <h2 id="letter"></h2>
+      <img id="image" src="" alt="Afbeelding" class="word-image">
+      <audio id="audioPlayer"></audio>
+    </div>
+
+  <!-- Laad eerst woordenlijst.js en daarna script.js -->
+  <script src="js/woordenlijst.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

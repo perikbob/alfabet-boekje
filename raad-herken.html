@@ -5,23 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Raden en Herkennen</title>
   <link rel="stylesheet" href="style.css">
-  <script src="js/woordenlijst.js"></script>
-  <script src="js/script.js"></script>
 </head>
 <body>
-  <!-- Navigatiebalk -->
-  <div id="navbar"></div>
+    <!-- Navigatiebalk -->
+  <a href="index.html" class="navbar">
+    Home
+  </a>
 
   <div class="container">
     <h1>Raden en Herkennen</h1>
-    <p>Luister naar het woord en kies de juiste afbeelding!</p>
-    <button id="playAudioButton">Speel Audio</button>
+    <button id="playAudioButton" class="button large">Speel Audio</button>
     <div id="options" class="options-container">
       <!-- Afbeeldingsopties worden hier dynamisch geladen -->
     </div>
     <div id="feedback" class="feedback"></div>
   </div>
 
+  <!-- Laad eerst woordenlijst.js en daarna script.js -->
+  <script src="js/woordenlijst.js"></script>
   <script src="js/raad-herken.js"></script>
 </body>
 </html>
