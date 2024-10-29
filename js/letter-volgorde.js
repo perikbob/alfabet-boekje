@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const playAudioButton = document.getElementById("playAudioButton");
+  const sequenceContainer = document.getElementById("sequence");
   const optionsContainer = document.getElementById("options");
   const feedback = document.getElementById("feedback");
 
   let correctAnswer = "";
 
-  // Functie om een willekeurige letter en afbeelding te selecteren
+  // Functie om een nieuwe vraag te genereren
   function loadQuestion() {
     sequenceContainer.innerHTML = "";
     optionsContainer.innerHTML = "";
@@ -42,16 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const button = document.createElement("button");
       button.classList.add("option-button");
       button.textContent = option;
-      button.setAttribute("data-option", option); // Voeg het data-option attribuut toe
       button.onclick = () => checkAnswer(option);
       optionsContainer.appendChild(button);
     });
   }
 
-
   // Functie om het antwoord te controleren
   function checkAnswer(selectedOption) {
-    const selectedButton = optionsContainer.querySelector(`[data-option="${selectedOption}"]`);
+    // Zoek het knop-element met de geselecteerde tekst
+    const selectedButton = Array.from(optionsContainer.children).find(
+      (button) => button.textContent === selectedOption
+    );
 
     if (selectedOption === correctAnswer) {
       feedback.textContent = "Goed gedaan!";
@@ -73,6 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 500);
     }
   }
+
+
 
   // Laad de eerste vraag
   loadQuestion();
