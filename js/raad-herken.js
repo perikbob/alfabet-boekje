@@ -7,51 +7,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Functie om een willekeurige letter en afbeelding te selecteren
   function loadQuestion() {
-    sequenceContainer.innerHTML = "";
     optionsContainer.innerHTML = "";
     feedback.textContent = "";
 
-    // Kies een willekeurige startpositie voor de reeks
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    const startIdx = Math.floor(Math.random() * (alphabet.length - 4));
-    const sequence = alphabet.slice(startIdx, startIdx + 4);
+    // Kies een willekeurige letter en stel het correcte antwoord in
+    const letters = Object.keys(woordenlijst);
+    const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+    const { woord, audio, image } = woordenlijst[randomLetter];
+    correctAnswer = randomLetter;
 
-    // Kies een willekeurige positie in de reeks om leeg te laten
-    const missingIndex = Math.floor(Math.random() * 4);
-    correctAnswer = sequence[missingIndex];
-    sequence[missingIndex] = "__"; // Markeer de ontbrekende positie met __
-
-    // Toon de reeks letters
-    sequence.forEach(letter => {
-      const span = document.createElement("span");
-      span.classList.add("sequence-item");
-      span.textContent = letter;
-      sequenceContainer.appendChild(span);
-    });
+    // Speel het bijbehorende audiofragment af
+    playAudioButton.onclick = () => {
+      const audioPlayer = new Audio(audio);
+      audioPlayer.play();
+    };
 
     // Voeg drie opties toe, inclusief het juiste antwoord
-    const options = [correctAnswer];
+    const options = [randomLetter];
     while (options.length < 3) {
-      const randomOption = alphabet[Math.floor(Math.random() * alphabet.length)];
+      const randomOption = letters[Math.floor(Math.random() * letters.length)];
       if (!options.includes(randomOption)) options.push(randomOption);
     }
 
     // Sorteer de opties willekeurig en voeg ze toe aan de container
     options.sort(() => Math.random() - 0.5);
-    options.forEach(option => {
-      const button = document.createElement("button");
-      button.classList.add("option-button");
-      button.textContent = option;
-      button.setAttribute("data-option", option); // Voeg het data-option attribuut toe
-      button.onclick = () => checkAnswer(option);
-      optionsContainer.appendChild(button);
+    options.forEach((option) => {
+      const element = document.createElement("div");
+      element.setAttribute("data-option", option);
+      element.classList.add("option-image-container");
+
+      // Voeg de afbeelding toe aan de optie-elementen
+      const img = document.createElement("img");
+      img.src = woordenlijst[option].image;
+      img.classList.add("option-image");
+
+      element.appendChild(img);
+      element.onclick = () => checkAnswer(option);
+      optionsContainer.appendChild(element);
     });
   }
 
-
   // Functie om het antwoord te controleren
   function checkAnswer(selectedOption) {
-    const selectedButton = optionsContainer.querySelector(`[data-option="${selectedOption}"]`);
+    const selectedElement = optionsContainer.querySelector(`[data-option="${selectedOption}"]`);
 
     if (selectedOption === correctAnswer) {
       feedback.textContent = "Goed gedaan!";
@@ -67,9 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
       feedback.style.color = "red";
 
       // Voeg fout-animatie toe aan het geselecteerde knop-element
-      selectedButton.classList.add("wrong");
+      selectedElement.classList.add("wrong");
       setTimeout(() => {
-        selectedButton.classList.remove("wrong"); // Verwijder animatie na 0.5 seconde
+        selectedElement.classList.remove("wrong"); // Verwijder animatie na 0.5 seconde
       }, 500);
     }
   }
