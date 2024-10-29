@@ -16,6 +16,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   padding-top: 60px; /* Ruimte voor vaste navigatiebalk */
+  backdrop-filter: blur(5px); /* Wazig effect op de achtergrondafbeelding */
 }
 
 /* Navigatiebalk styling */
@@ -27,34 +28,34 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #ff6347;
-  padding: 15px 0; /* Maak de hoogte van de klikbare balk groter */
+  background-color: #ff7f50; /* Iets lichtere tint oranje */
+  padding: 10px 0; /* Kleiner voor subtielere uitstraling */
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1rem; /* Kleiner lettertype voor balans */
   text-align: center;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); /* Lichtere schaduw */
   z-index: 1000;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .navbar:hover {
-  background-color: #45a049;
+  background-color: #ff6347;
 }
 
 .navbar a {
-  color: white;
+  color: #ffffff;
   text-decoration: none;
 }
 
 /* Hoofdcontainer */
 .container {
   width: 90%;
-  max-width: 800px; /* Brede container voor tegelweergave */
+  max-width: 800px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.9); /* Lichte transparantie voor contrast */
   border-radius: 15px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
   margin-top: 20px;
 }
@@ -62,7 +63,7 @@ body {
 /* Titel */
 h1 {
   color: #ff6347;
-  font-size: 2.2rem;
+  font-size: 2rem;
   margin-bottom: 20px;
 }
 
@@ -73,13 +74,15 @@ h1 {
   padding: 12px 24px;
   font-size: 1rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px; /* Zachtere, ronde hoeken */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .button:hover {
   background-color: #ff4500;
+  transform: scale(1.05); /* Lichte schaalvergroting bij hover */
 }
 
 /* Specifieke knopgroottes */
@@ -211,7 +214,7 @@ h1 {
   text-align: center;
 }
 
-
+/* Speel audio knop */
 .play-button {
   position: fixed;
   bottom: 20px;
@@ -226,3 +229,56 @@ h1 {
   transform: scale(1.1); 
 }
 
+/* Raad en Herken Level 2 - Letteropties styling */
+.letter-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background-color: #ff6347;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.letter-option:hover {
+  background-color: #ff4500;
+  transform: translateY(-5px);
+}
+
+.letter-display {
+  font-size: 2.5rem; /* Grote weergave van de hoofdletter */
+}
+
+.small-letter-display {
+  font-size: 1.5rem; /* Kleinere weergave van de kleine letter */
+}
+
+/* Animatie voor een correct antwoord */
+@keyframes correctAnswer {
+  0% { transform: scale(1); background-color: #4CAF50; }
+  50% { transform: scale(1.1); background-color: #45A049; }
+  100% { transform: scale(1); background-color: #4CAF50; }
+}
+
+.correct {
+  animation: correctAnswer 0.5s ease-in-out;
+}
+
+/* Animatie voor een fout antwoord */
+@keyframes wrongAnswer {
+  0% { transform: translateX(0); background-color: #ff6347; }
+  25% { transform: translateX(-10px); background-color: #ff4500; }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+  100% { transform: translateX(0); background-color: #ff6347; }
+}
+
+.wrong {
+  animation: wrongAnswer 0.5s ease-in-out;
+}

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let correctAnswer = "";
 
-  // Functie om een willekeurige letter en afbeelding te selecteren
+  // Functie om een willekeurige letter te kiezen en de opties te laden
   function loadQuestion() {
     optionsContainer.innerHTML = "";
     feedback.textContent = "";
@@ -13,10 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Kies een willekeurige letter en stel het correcte antwoord in
     const letters = Object.keys(woordenlijst);
     const randomLetter = letters[Math.floor(Math.random() * letters.length)];
-    const { woord, audio, image } = woordenlijst[randomLetter];
+    const { woord, audio } = woordenlijst[randomLetter];
     correctAnswer = randomLetter;
 
-    // Speel het bijbehorende audiofragment af
+    // Speel het bijbehorende audiofragment af wanneer op de knop wordt geklikt
     playAudioButton.onclick = () => {
       const audioPlayer = new Audio(audio);
       audioPlayer.play();
@@ -31,24 +31,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Sorteer de opties willekeurig en voeg ze toe aan de container
     options.sort(() => Math.random() - 0.5);
-
     options.forEach((option) => {
-      // Maak een <div> aan voor elke optie
-      const element = document.createElement("div");
-      element.setAttribute("data-option", option);
-      element.classList.add("option-image-container");
+      // Maak een div-element aan voor de optie
+      const optionDiv = document.createElement("div");
+      optionDiv.classList.add("letter-option");
+      optionDiv.setAttribute("data-option", option); // Voeg data-option toe
 
-      // Voeg een <img> toe binnen de div voor de afbeelding
-      const img = document.createElement("img");
-      img.src = woordenlijst[option].image;
-      img.classList.add("option-image");
-
-      element.appendChild(img); // Voeg de afbeelding toe aan de optie-div
-      element.onclick = () => checkAnswer(option); // Voeg de click-handler toe
-
-      optionsContainer.appendChild(element);
+      // Voeg de hoofdletter en kleine letter toe aan de optie
+      optionDiv.innerHTML = `
+        <span class="letter-display">${option.toUpperCase()}</span>
+        <span class="small-letter-display">${option.toLowerCase()}</span>
+      `;
+      optionDiv.onclick = () => checkAnswer(option);
+      optionsContainer.appendChild(optionDiv);
     });
   }
+
 
   // Functie om het antwoord te controleren
   function checkAnswer(selectedOption) {
@@ -80,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+
   // Laad de eerste vraag
-  loadQuestion();
+loadQuestion();
 });
