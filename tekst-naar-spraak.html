@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tekst naar Spraak</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigatiebalk -->
+  <a href="index.html" class="navbar">Home</a>
+
+  <div class="container">
+    <h1>Tekst naar Spraak</h1>
+    
+    <label for="textInput">Voer de tekst in die je wilt horen:</label>
+    <textarea id="textInput" rows="4" cols="50" placeholder="Typ hier de tekst..."></textarea>
+    
+    <button onclick="speelTekstAf()" class="button">Speel Tekst Af</button>
+    
+    <p id="feedback"></p>
+  </div>
+
+  <!-- JavaScript voor Text-to-Speech functionaliteit -->
+  <script>
+    function speelTekstAf() {
+      const text = document.getElementById('textInput').value;
+      const feedback = document.getElementById('feedback');
+
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'nl-NL'; // Nederlandse taalinstelling
+        window.speechSynthesis.speak(utterance);
+        
+        feedback.textContent = "Tekst wordt afgespeeld...";
+      } else {
+        feedback.textContent = "Text-to-speech wordt niet ondersteund in deze browser.";
+      }
+    }
+  </script>
+</body>
+</html>
